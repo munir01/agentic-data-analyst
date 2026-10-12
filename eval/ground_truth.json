@@ -1,0 +1,306 @@
+{
+  "database": "db/olist.db",
+  "tasks": {
+    "delivery_vs_reviews": {
+      "question": "Do late deliveries have a meaningful relationship with customer satisfaction? Quantify the relationship using the data.",
+      "metric_definition": "Observation unit: one order. Average multiple review rows per order first. Include only orders with actual and estimated delivery timestamps. Late means actual delivery is after estimated delivery.",
+      "reference_sql": "eval/sql/delivery_vs_reviews.sql",
+      "expected_rows": [
+        {
+          "delivery_status": "Late",
+          "reviewed_orders": 7662,
+          "avg_review_score": 2.566562
+        },
+        {
+          "delivery_status": "On Time",
+          "reviewed_orders": 88168,
+          "avg_review_score": 4.294151
+        }
+      ]
+    },
+    "worst_categories": {
+      "question": "Which product categories have the lowest average customer review scores? Only consider categories with at least 100 reviewed orders.",
+      "metric_definition": "Observation unit: one distinct order-category pair. Multiple items from the same category in one order count once. Average multiple review rows per order first.",
+      "reference_sql": "eval/sql/worst_categories.sql",
+      "expected_rows": [
+        {
+          "category": "office_furniture",
+          "reviewed_orders": 1263,
+          "avg_review_score": 3.61639
+        },
+        {
+          "category": "fashion_male_clothing",
+          "reviewed_orders": 111,
+          "avg_review_score": 3.702703
+        },
+        {
+          "category": "audio",
+          "reviewed_orders": 347,
+          "avg_review_score": 3.834294
+        },
+        {
+          "category": "construction_tools_safety",
+          "reviewed_orders": 166,
+          "avg_review_score": 3.849398
+        },
+        {
+          "category": "home_confort",
+          "reviewed_orders": 395,
+          "avg_review_score": 3.863291
+        },
+        {
+          "category": "fixed_telephony",
+          "reviewed_orders": 214,
+          "avg_review_score": 3.901869
+        },
+        {
+          "category": "fashion_underwear_beach",
+          "reviewed_orders": 120,
+          "avg_review_score": 3.933333
+        },
+        {
+          "category": "home_construction",
+          "reviewed_orders": 487,
+          "avg_review_score": 3.967146
+        },
+        {
+          "category": "bed_bath_table",
+          "reviewed_orders": 9313,
+          "avg_review_score": 3.97074
+        },
+        {
+          "category": "telephony",
+          "reviewed_orders": 4168,
+          "avg_review_score": 4.003119
+        }
+      ]
+    },
+    "seller_delays": {
+      "question": "Which sellers have the highest late-delivery rates? Only consider sellers with at least 100 delivered orders.",
+      "metric_definition": "Observation unit: one distinct seller-order pair. Multiple items from the same seller in one order count once. Only include orders with actual and estimated delivery timestamps.",
+      "reference_sql": "eval/sql/seller_delays.sql",
+      "expected_rows": [
+        {
+          "seller_id": "06a2c3af7b3aee5d69171b0e14f0ee87",
+          "delivered_orders": 389,
+          "late_orders": 90,
+          "late_rate_pct": 23.1362
+        },
+        {
+          "seller_id": "1ca7077d890b907f89be8c954a02686a",
+          "delivered_orders": 108,
+          "late_orders": 24,
+          "late_rate_pct": 22.2222
+        },
+        {
+          "seller_id": "88460e8ebdecbfecb5f9601833981930",
+          "delivered_orders": 246,
+          "late_orders": 48,
+          "late_rate_pct": 19.5122
+        },
+        {
+          "seller_id": "e5a3438891c0bfdb9394643f95273d8e",
+          "delivered_orders": 216,
+          "late_orders": 40,
+          "late_rate_pct": 18.5185
+        },
+        {
+          "seller_id": "cd68562d3f44870c08922d380acae552",
+          "delivered_orders": 122,
+          "late_orders": 22,
+          "late_rate_pct": 18.0328
+        },
+        {
+          "seller_id": "8160255418d5aaa7dbdc9f4c64ebda44",
+          "delivered_orders": 380,
+          "late_orders": 63,
+          "late_rate_pct": 16.5789
+        },
+        {
+          "seller_id": "2c9e548be18521d1c43cde1c582c6de8",
+          "delivered_orders": 124,
+          "late_orders": 20,
+          "late_rate_pct": 16.129
+        },
+        {
+          "seller_id": "dd7ddc04e1b6c2c614352b383efe2d36",
+          "delivered_orders": 121,
+          "late_orders": 19,
+          "late_rate_pct": 15.7025
+        },
+        {
+          "seller_id": "f7ba60f8c3f99e7ee4042fdef03b70c4",
+          "delivered_orders": 218,
+          "late_orders": 34,
+          "late_rate_pct": 15.5963
+        },
+        {
+          "seller_id": "431af27f296bc6519d890aa5a05fdb11",
+          "delivered_orders": 116,
+          "late_orders": 18,
+          "late_rate_pct": 15.5172
+        }
+      ]
+    },
+    "monthly_delivery": {
+      "question": "Did delivery performance improve or deteriorate over time? Analyze the monthly late-delivery rate.",
+      "metric_definition": "Observation unit: one order grouped by purchase month. Only include orders with purchase, actual delivery, and estimated delivery timestamps. Only include months with at least 100 delivered orders.",
+      "reference_sql": "eval/sql/monthly_delivery.sql",
+      "expected_rows": [
+        {
+          "purchase_month": "2016-10",
+          "delivered_orders": 270,
+          "late_orders": 3,
+          "late_rate_pct": 1.1111
+        },
+        {
+          "purchase_month": "2017-01",
+          "delivered_orders": 750,
+          "late_orders": 23,
+          "late_rate_pct": 3.0667
+        },
+        {
+          "purchase_month": "2017-02",
+          "delivered_orders": 1653,
+          "late_orders": 53,
+          "late_rate_pct": 3.2063
+        },
+        {
+          "purchase_month": "2017-03",
+          "delivered_orders": 2546,
+          "late_orders": 142,
+          "late_rate_pct": 5.5774
+        },
+        {
+          "purchase_month": "2017-04",
+          "delivered_orders": 2303,
+          "late_orders": 181,
+          "late_rate_pct": 7.8593
+        },
+        {
+          "purchase_month": "2017-05",
+          "delivered_orders": 3545,
+          "late_orders": 128,
+          "late_rate_pct": 3.6107
+        },
+        {
+          "purchase_month": "2017-06",
+          "delivered_orders": 3135,
+          "late_orders": 121,
+          "late_rate_pct": 3.8596
+        },
+        {
+          "purchase_month": "2017-07",
+          "delivered_orders": 3872,
+          "late_orders": 133,
+          "late_rate_pct": 3.4349
+        },
+        {
+          "purchase_month": "2017-08",
+          "delivered_orders": 4193,
+          "late_orders": 139,
+          "late_rate_pct": 3.315
+        },
+        {
+          "purchase_month": "2017-09",
+          "delivered_orders": 4150,
+          "late_orders": 216,
+          "late_rate_pct": 5.2048
+        },
+        {
+          "purchase_month": "2017-10",
+          "delivered_orders": 4478,
+          "late_orders": 237,
+          "late_rate_pct": 5.2925
+        },
+        {
+          "purchase_month": "2017-11",
+          "delivered_orders": 7288,
+          "late_orders": 1043,
+          "late_rate_pct": 14.3112
+        },
+        {
+          "purchase_month": "2017-12",
+          "delivered_orders": 5513,
+          "late_orders": 462,
+          "late_rate_pct": 8.3802
+        },
+        {
+          "purchase_month": "2018-01",
+          "delivered_orders": 7069,
+          "late_orders": 464,
+          "late_rate_pct": 6.5639
+        },
+        {
+          "purchase_month": "2018-02",
+          "delivered_orders": 6556,
+          "late_orders": 1049,
+          "late_rate_pct": 16.0006
+        },
+        {
+          "purchase_month": "2018-03",
+          "delivered_orders": 7003,
+          "late_orders": 1496,
+          "late_rate_pct": 21.3623
+        },
+        {
+          "purchase_month": "2018-04",
+          "delivered_orders": 6798,
+          "late_orders": 361,
+          "late_rate_pct": 5.3104
+        },
+        {
+          "purchase_month": "2018-05",
+          "delivered_orders": 6749,
+          "late_orders": 556,
+          "late_rate_pct": 8.2383
+        },
+        {
+          "purchase_month": "2018-06",
+          "delivered_orders": 6096,
+          "late_orders": 83,
+          "late_rate_pct": 1.3615
+        },
+        {
+          "purchase_month": "2018-07",
+          "delivered_orders": 6156,
+          "late_orders": 276,
+          "late_rate_pct": 4.4834
+        },
+        {
+          "purchase_month": "2018-08",
+          "delivered_orders": 6351,
+          "late_orders": 660,
+          "late_rate_pct": 10.3921
+        }
+      ]
+    },
+    "payment_reviews": {
+      "question": "Is customer satisfaction meaningfully different across payment types? Quantify the differences.",
+      "metric_definition": "Observation unit: one order. Average multiple review rows per order first. Assign one primary payment type using the payment row with largest payment_value, breaking ties by lower payment_sequential then payment_type.",
+      "reference_sql": "eval/sql/payment_reviews.sql",
+      "expected_rows": [
+        {
+          "payment_type": "voucher",
+          "reviewed_orders": 3121,
+          "avg_review_score": 4.005874
+        },
+        {
+          "payment_type": "boleto",
+          "reviewed_orders": 19636,
+          "avg_review_score": 4.087136
+        },
+        {
+          "payment_type": "credit_card",
+          "reviewed_orders": 74391,
+          "avg_review_score": 4.088537
+        },
+        {
+          "payment_type": "debit_card",
+          "reviewed_orders": 1521,
+          "avg_review_score": 4.169954
+        }
+      ]
+    }
+  }
+}

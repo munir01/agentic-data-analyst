@@ -1,0 +1,7 @@
+fastapi==0.136.3
+uvicorn==0.54.0
+boto3==1.43.108
+mlflow==3.17.0
+langgraph==1.2.12
+mcp==2.3.0
+botocore[crt]==1.43.108

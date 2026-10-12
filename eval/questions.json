@@ -1,0 +1,32 @@
+[
+  {
+    "id": "delivery_vs_reviews",
+    "question": "Do late deliveries have a meaningful relationship with customer satisfaction? Quantify the relationship using the data.",
+    "metric_definition": "Observation unit: one order. Average multiple review rows per order first. Include only orders with actual and estimated delivery timestamps. Late means actual delivery is after estimated delivery.",
+    "reference_sql": "eval/sql/delivery_vs_reviews.sql"
+  },
+  {
+    "id": "worst_categories",
+    "question": "Which product categories have the lowest average customer review scores? Only consider categories with at least 100 reviewed orders.",
+    "metric_definition": "Observation unit: one distinct order-category pair. Multiple items from the same category in one order count once. Average multiple review rows per order first.",
+    "reference_sql": "eval/sql/worst_categories.sql"
+  },
+  {
+    "id": "seller_delays",
+    "question": "Which sellers have the highest late-delivery rates? Only consider sellers with at least 100 delivered orders.",
+    "metric_definition": "Observation unit: one distinct seller-order pair. Multiple items from the same seller in one order count once. Only include orders with actual and estimated delivery timestamps.",
+    "reference_sql": "eval/sql/seller_delays.sql"
+  },
+  {
+    "id": "monthly_delivery",
+    "question": "Did delivery performance improve or deteriorate over time? Analyze the monthly late-delivery rate.",
+    "metric_definition": "Observation unit: one order grouped by purchase month. Only include orders with purchase, actual delivery, and estimated delivery timestamps. Only include months with at least 100 delivered orders.",
+    "reference_sql": "eval/sql/monthly_delivery.sql"
+  },
+  {
+    "id": "payment_reviews",
+    "question": "Is customer satisfaction meaningfully different across payment types? Quantify the differences.",
+    "metric_definition": "Observation unit: one order. Average multiple review rows per order first. Assign one primary payment type using the payment row with largest payment_value, breaking ties by lower payment_sequential then payment_type.",
+    "reference_sql": "eval/sql/payment_reviews.sql"
+  }
+]

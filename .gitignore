@@ -1,0 +1,43 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets / local config
+.env
+.env.*
+.aws/
+
+# macOS / editor
+.DS_Store
+.vscode/
+
+# Airflow / MLflow
+.airflow/
+mlruns/
+mlflow.db
+
+# Large/local data
+db/olist.db
+data/
+
+# Local notes
+readme.txt
+StartupChecklist.txt
+
+# Generated evaluation outputs
+eval/evaluation_results.json
+eval/results_*.json
+eval/evaluation_summary.csv
+
+# Test / tooling caches
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+scripts/evaluate_agents_safe_old.py
+src/agent_v2_old.py

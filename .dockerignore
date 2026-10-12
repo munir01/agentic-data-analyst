@@ -1,0 +1,11 @@
+.venv/
+.airflow/
+.git/
+__pycache__/
+*.pyc
+.mlflow/
+mlruns/
+eval/
+data/
+scripts/
+.DS_Store
