@@ -68,7 +68,7 @@ jobs:
       - name: Build and push ARM64 Docker image
         run: |
           docker buildx build \
-            --platform linux/arm64 \
+            --platform linux/amd64 \
             -t 638869575937.dkr.ecr.us-east-1.amazonaws.com/olist-agent:latest \
             -t 638869575937.dkr.ecr.us-east-1.amazonaws.com/olist-agent:${{ github.sha }} \
             --push \

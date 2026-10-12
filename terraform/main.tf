@@ -61,3 +61,30 @@ resource "aws_ecr_lifecycle_policy" "olist_agent" {
     ]
   })
 }
+
+data "aws_iam_role" "ecs_task" {
+  name = "olist-agent-task-role"
+}
+
+resource "aws_ecs_express_gateway_service" "olist_agent" {
+  service_name = "olist-agent"
+
+  execution_role_arn      = "arn:aws:iam::638869575937:role/ecsTaskExecutionRole"
+  infrastructure_role_arn = "arn:aws:iam::638869575937:role/ecsInfrastructureRoleForExpressServices"
+  task_role_arn           = data.aws_iam_role.ecs_task.arn
+
+  cpu    = "1024"
+  memory = "2048"
+
+  health_check_path = "/health"
+
+  primary_container {
+    image          = "${data.aws_ecr_repository.olist_agent.repository_url}:latest"
+    container_port = 8000
+  }
+
+  scaling_target {
+    min_task_count = 1
+    max_task_count = 1
+  }
+}
