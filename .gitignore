@@ -41,3 +41,11 @@ htmlcov/
 
 scripts/evaluate_agents_safe_old.py
 src/agent_v2_old.py
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+crash.log
