@@ -29,6 +29,17 @@ Late delivery:     2.57
 On-time delivery:  4.29
 ```
 
+## Engineering Highlights
+
+- Analyzer/verifier agent workflow with SQL-based grounding
+- MCP-based database tool integration
+- Ground-truth evaluation and failure analysis
+- FastAPI service with API-key authentication
+- Dockerized deployment to AWS ECS/Fargate
+- GitHub Actions CI with OIDC-based AWS authentication
+- Terraform-based reproducible infrastructure
+- AWS Secrets Manager for runtime secrets
+
 ## Architecture
 
 ```mermaid
@@ -80,7 +91,7 @@ AWS ECS Express / Fargate
 terraform destroy
    |
    v
-remove running cloud infrastructure when experimentation is finished
+destroy Terraform-managed cloud resources
 ```
 
 GitHub Actions currently publishes the container image to ECR. Deployment to ECS is deliberately triggered separately with Terraform so cloud cost remains under manual control.
@@ -181,6 +192,8 @@ This is intentional: the project treats evaluation and failure analysis as part 
 The SQLite database is intentionally not committed to Git.
 
 ## Local setup
+
+Local execution requires AWS credentials with access to Amazon Bedrock.
 
 ```bash
 python -m venv .venv
@@ -290,63 +303,9 @@ This keeps the project inexpensive when it is not being used.
 - ECS task, execution, and infrastructure permissions are separated through IAM roles.
 - The `/ask` endpoint requires the `X-API-Key` header.
 
-## Demo
 
-A short portfolio demo can show the complete path in under one minute.
+## Future Extensions
 
-Suggested recording:
-
-```text
-1. Show the GitHub repository and architecture diagram.
-2. Show a successful GitHub Actions build.
-3. Run: terraform apply
-4. Run: curl https://<endpoint>/health
-5. Run an authenticated /ask request.
-6. Show the verified analytical answer.
-7. Run: terraform destroy
-```
-
-Good demo questions:
-
-```text
-How many orders are in the database?
-```
-
-```text
-Do late deliveries have a meaningful relationship with customer satisfaction?
-```
-
-A future `docs/demo.gif` or short video can be embedded here once recorded.
-
-## What I learned
-
-Building an AI system beyond a notebook required work across:
-
-- agent reasoning and verification
-- SQL correctness and evaluation
-- API design
-- containerization
-- authentication and secrets
-- IAM policies, roles, trust relationships, and `iam:PassRole`
-- cloud deployment
-- infrastructure as code
-- CI image delivery
-- cost-aware teardown and recreation
-
-The main engineering lesson is that deploying an AI agent reliably requires treating model behavior, tools, infrastructure, permissions, evaluation, and cost as one system.
-
-## Next steps
-
-Near-term polish:
-
-- [ ] Record a short demo GIF/video
-- [ ] Add selected benchmark results to this README
-- [ ] Add a static architecture image for platforms that do not render Mermaid
-- [ ] Parameterize remaining AWS-specific Terraform values
-
-Possible later extensions:
-
-- automatically trigger an ECS redeployment after a successful image build
-- add stronger API authentication / rate limiting
-- move Terraform state to a remote backend
-- add a small Kubernetes deployment exercise separately
+- Automatic ECS redeployment after successful image builds
+- Remote Terraform state
+- Stronger API authentication and rate limiting
