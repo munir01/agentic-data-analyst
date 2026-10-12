@@ -69,8 +69,8 @@ data "aws_iam_role" "ecs_task" {
 resource "aws_ecs_express_gateway_service" "olist_agent" {
   service_name = "olist-agent"
 
-  execution_role_arn      = "arn:aws:iam::638869575937:role/ecsTaskExecutionRole"
-  infrastructure_role_arn = "arn:aws:iam::638869575937:role/ecsInfrastructureRoleForExpressServices"
+  execution_role_arn      = "arn:aws:iam::638869575937:role/service-role/ecsTaskExecutionRole"
+  infrastructure_role_arn = "arn:aws:iam::638869575937:role/service-role/ecsInfrastructureRoleForExpressServices"
   task_role_arn           = data.aws_iam_role.ecs_task.arn
 
   cpu    = "1024"
@@ -81,10 +81,17 @@ resource "aws_ecs_express_gateway_service" "olist_agent" {
   primary_container {
     image          = "${data.aws_ecr_repository.olist_agent.repository_url}:latest"
     container_port = 8000
+    secret {
+      name       = "API_KEY"
+      value_from = "arn:aws:secretsmanager:us-east-1:638869575937:secret:olist-agent-api-key-VAvv1J"
+    }
   }
 
   scaling_target {
-    min_task_count = 1
-    max_task_count = 1
+    min_task_count            = 1
+    max_task_count            = 1
+    auto_scaling_metric       = "AVERAGE_CPU"
+    auto_scaling_target_value = 60
   }
+
 }
