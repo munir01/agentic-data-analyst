@@ -19,6 +19,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Show repository IDs
+        run: |
+          echo "repository_id=${{ github.repository_id }}"
+          echo "repository_owner_id=${{ github.repository_owner_id }}"
+
       - name: Check Python syntax
         run: |
           python -m compileall api.py mcp_server.py src/
